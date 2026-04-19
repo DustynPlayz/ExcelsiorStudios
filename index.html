@@ -1,54 +1,13 @@
-import React, { useState, useEffect } from 'react';
-import { 
-  Camera, 
-  Film, 
-  Layers, 
-  Mail, 
-  Youtube, 
-  Instagram, 
-  Twitter, 
-  Play, 
-  ChevronRight, 
-  Monitor,
-  CheckCircle2,
-  Menu,
-  X
-} from 'lucide-react';
-
-const App = () => {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 50);
-    };
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
-
-  // Updated projects to only include "Miles Morales: A Leap of Faith"
-  const projects = [
-    {
-      title: "Miles Morales: A Leap of Faith",
-      type: "Feature Fan Film",
-      status: "In Production",
-      desc: "A definitive live-action exploration of Miles' journey, pushing the boundaries of independent VFX and storytelling.",
-      image: "spider-man-miles-morales-ps5-7zzx04redpyxuwf3.jpg"
-    }
-  ];
-
-  const vfxStats = [
-    { label: "3D Environments", value: "50+" },
-    { label: "Custom Suits", value: "12" },
-    { label: "VFX Shots", value: "400+" },
-    { label: "YouTube Subs", value: "25k+" },
-  ];
-
-  return (
-    <div className="min-h-screen bg-neutral-950 text-white font-sans selection:bg-red-600 selection:text-white">
-      {/* Custom Global Styles for Animations */}
-      <style dangerouslySetInnerHTML={{ __html: `
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Excelsior Studios | Miles Morales</title>
+    <!-- Tailwind CSS for styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Custom Animations */
         @keyframes slowZoom {
           0% { transform: scale(1); }
           100% { transform: scale(1.1); }
@@ -66,230 +25,289 @@ const App = () => {
         .hover-glitch:hover {
           animation: textGlitch 0.3s infinite;
         }
-      `}} />
+        html {
+            scroll-behavior: smooth;
+        }
+        body {
+            background-color: #0a0a0a;
+            color: white;
+            font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+        }
+    </style>
+</head>
+<body class="selection:bg-red-600 selection:text-white">
 
-      {/* Navigation */}
-      <nav className={`fixed w-full z-50 transition-all duration-300 ${scrolled ? 'bg-black/95 backdrop-blur-md py-3 border-b border-white/5' : 'bg-transparent py-6'}`}>
-        <div className="container mx-auto px-6 flex justify-between items-center">
-          <div className="flex items-center space-x-2 group cursor-pointer">
-            <div className="w-10 h-10 bg-red-600 flex items-center justify-center rounded-lg rotate-3 group-hover:rotate-0 transition-transform shadow-[0_0_20px_rgba(220,38,38,0.5)]">
-              <Camera size={24} />
+    <!-- Navigation -->
+    <nav id="navbar" class="fixed w-full z-50 transition-all duration-300 bg-transparent py-6">
+        <div class="container mx-auto px-6 flex justify-between items-center">
+            <div class="flex items-center space-x-2 group cursor-pointer">
+                <div class="w-10 h-10 bg-red-600 flex items-center justify-center rounded-lg rotate-3 group-hover:rotate-0 transition-transform shadow-[0_0_20px_rgba(220,38,38,0.5)]">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3z"/><circle cx="12" cy="13" r="3"/></svg>
+                </div>
+                <span class="text-2xl font-black tracking-tighter uppercase italic">
+                    Excelsior <span class="text-red-600">Studios</span>
+                </span>
             </div>
-            <span className="text-2xl font-black tracking-tighter uppercase italic">
-              Excelsior <span className="text-red-600">Studios</span>
-            </span>
-          </div>
 
-          <div className="hidden md:flex space-x-8 text-sm font-bold uppercase tracking-widest">
-            {['Home', 'Projects', 'VFX', 'About', 'Contact'].map((item) => (
-              <a key={item} href={`#${item.toLowerCase()}`} className="hover:text-red-500 transition-colors relative group">
-                {item}
-                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-red-600 transition-all group-hover:w-full"></span>
-              </a>
-            ))}
-          </div>
+            <div class="hidden md:flex space-x-8 text-sm font-bold uppercase tracking-widest">
+                <a href="#home" class="hover:text-red-500 transition-colors relative group">Home<span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-red-600 transition-all group-hover:w-full"></span></a>
+                <a href="#projects" class="hover:text-red-500 transition-colors relative group">Projects<span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-red-600 transition-all group-hover:w-full"></span></a>
+                <a href="#vfx" class="hover:text-red-500 transition-colors relative group">VFX<span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-red-600 transition-all group-hover:w-full"></span></a>
+                <a href="#contact" class="hover:text-red-500 transition-colors relative group">Contact<span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-red-600 transition-all group-hover:w-full"></span></a>
+            </div>
 
-          <button className="md:hidden" onClick={() => setIsMenuOpen(!isMenuOpen)}>
-            {isMenuOpen ? <X /> : <Menu />}
-          </button>
-        </div>
-
-        {isMenuOpen && (
-          <div className="md:hidden bg-neutral-900 border-b border-white/10 absolute w-full px-6 py-8 space-y-4">
-            {['Home', 'Projects', 'VFX', 'About', 'Contact'].map((item) => (
-              <a key={item} href={`#${item.toLowerCase()}`} className="block text-xl font-bold uppercase" onClick={() => setIsMenuOpen(false)}>
-                {item}
-              </a>
-            ))}
-          </div>
-        )}
-      </nav>
-
-      {/* Hero Section */}
-      <section id="home" className="relative h-screen flex items-center justify-center overflow-hidden">
-        <div className="absolute inset-0 z-0">
-          <div className="absolute inset-0 bg-gradient-to-t from-neutral-950 via-neutral-950/20 to-transparent z-10" />
-          <div className="absolute inset-0 bg-gradient-to-r from-neutral-950 via-neutral-950/40 to-transparent z-10 hidden md:block" />
-          
-          <img 
-            src="spider-man-miles-morales-ps5-7zzx04redpyxuwf3.jpg" 
-            className="w-full h-full object-cover animate-slow-zoom opacity-90 brightness-[0.8] contrast-[1.1]"
-            alt="Miles Morales PS5 Background"
-            style={{ objectPosition: '75% center' }}
-          />
-        </div>
-
-        <div className="relative z-20 text-center md:text-left px-6 container mx-auto flex flex-col items-center md:items-start max-w-7xl">
-          <div className="inline-flex items-center space-x-2 bg-red-600/30 border border-red-500/50 rounded-full px-5 py-1.5 mb-8 backdrop-blur-md shadow-[0_0_15px_rgba(220,38,38,0.3)]">
-            <span className="w-2 h-2 bg-red-500 rounded-full animate-pulse" />
-            <span className="text-[10px] font-black uppercase tracking-[0.2em] text-red-100">Project: A Leap of Faith</span>
-          </div>
-          
-          <h1 className="text-7xl md:text-[11rem] font-black italic uppercase leading-[0.8] mb-8 hover-glitch transition-all cursor-default tracking-tighter">
-            Be <span className="text-red-600">Greater</span>
-          </h1>
-          
-          <p className="text-lg md:text-2xl text-neutral-200 mb-12 max-w-xl font-medium leading-tight drop-shadow-[0_2px_10px_rgba(0,0,0,1)]">
-            Excelsior Studios brings the Brooklyn hero to life with custom 3D textures and feature-grade Unreal Engine 5 rendering.
-          </p>
-
-          <div className="flex flex-col sm:flex-row items-center gap-6">
-            <button className="w-full sm:w-auto px-10 py-5 bg-red-600 hover:bg-red-700 rounded-full font-black uppercase tracking-widest flex items-center justify-center transition-all transform hover:scale-105 shadow-[0_0_30px_rgba(220,38,38,0.4)] group">
-              Play Trailer <Play className="ml-3 fill-current group-hover:translate-x-1 transition-transform" size={20} />
+            <button class="md:hidden" id="menu-toggle">
+                <svg id="menu-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
             </button>
-            <button className="w-full sm:w-auto px-10 py-5 bg-black/40 hover:bg-black/60 rounded-full font-black uppercase tracking-widest border border-white/10 backdrop-blur-xl transition-all hover:border-red-600/50">
-              Technical Breakdown
-            </button>
-          </div>
         </div>
-      </section>
 
-      {/* Stats Section */}
-      <section className="py-20 border-y border-white/5 bg-neutral-900/50 relative overflow-hidden">
-        <div className="container mx-auto px-6 relative z-10">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
-            {vfxStats.map((stat, i) => (
-              <div key={i} className="text-center group">
-                <div className="text-4xl md:text-5xl font-black text-white group-hover:text-red-600 transition-colors mb-2 tracking-tighter">{stat.value}</div>
-                <div className="text-[10px] uppercase tracking-[0.3em] text-neutral-500 font-bold">{stat.label}</div>
-              </div>
-            ))}
-          </div>
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-neutral-900 border-b border-white/10 absolute w-full px-6 py-8 space-y-4">
+            <a href="#home" class="block text-xl font-bold uppercase">Home</a>
+            <a href="#projects" class="block text-xl font-bold uppercase">Projects</a>
+            <a href="#vfx" class="block text-xl font-bold uppercase">VFX</a>
+            <a href="#contact" class="block text-xl font-bold uppercase">Contact</a>
         </div>
-      </section>
+    </nav>
 
-      {/* Projects Grid */}
-      <section id="projects" className="py-24">
-        <div className="container mx-auto px-6">
-          <div className="flex flex-col md:flex-row justify-between items-end mb-16 gap-6">
-            <div>
-              <h2 className="text-sm font-bold uppercase tracking-[0.3em] text-red-600 mb-4">The Slate</h2>
-              <h3 className="text-4xl md:text-6xl font-black italic uppercase">Primary Mission</h3>
-            </div>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-1 max-w-3xl mx-auto">
-            {projects.map((project, i) => (
-              <div key={i} className="group relative overflow-hidden rounded-3xl bg-neutral-900 border border-white/5 hover:border-red-600/50 transition-all duration-500 shadow-2xl">
-                <div className="aspect-video overflow-hidden">
-                  <img 
-                    src={project.image} 
-                    alt={project.title}
-                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 brightness-75 group-hover:brightness-100"
-                    style={{ objectPosition: 'center 40%' }}
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-neutral-900 via-neutral-900/40 to-transparent" />
-                </div>
-                <div className="p-10 relative">
-                  <span className="text-[9px] font-black uppercase tracking-widest px-3 py-1 bg-red-600 text-white rounded-full mb-4 inline-block">
-                    {project.status}
-                  </span>
-                  <h4 className="text-4xl font-black mb-3 italic uppercase tracking-tighter leading-none">
-                    {project.title}
-                  </h4>
-                  <p className="text-neutral-400 text-lg leading-relaxed mb-6">
-                    {project.desc}
-                  </p>
-                  <button className="flex items-center text-[10px] font-black uppercase tracking-widest text-red-500 hover:text-white transition-colors">
-                    Explore Production Gallery <ChevronRight size={14} className="ml-1" />
-                  </button>
-                </div>
-              </div>
-            ))}
-          </div>
+    <!-- Hero Section -->
+    <section id="home" class="relative h-screen flex items-center justify-center overflow-hidden">
+        <div class="absolute inset-0 z-0">
+            <div class="absolute inset-0 bg-gradient-to-t from-neutral-950 via-neutral-950/20 to-transparent z-10"></div>
+            <div class="absolute inset-0 bg-gradient-to-r from-neutral-950 via-neutral-950/40 to-transparent z-10 hidden md:block"></div>
+            
+            <img 
+                src="spider-man-miles-morales-ps5-7zzx04redpyxuwf3.jpg" 
+                class="w-full h-full object-cover animate-slow-zoom opacity-90 brightness-[0.8] contrast-[1.1]"
+                alt="Miles Morales PS5 Background"
+                style="object-position: 75% center;"
+                onerror="this.src='https://images.unsplash.com/photo-1620336655055-088d06e766e3?auto=format&fit=crop&q=80&w=1920'"
+            >
         </div>
-      </section>
 
-      {/* VFX Mastery Section */}
-      <section id="vfx" className="py-32 bg-red-600 relative overflow-hidden">
-        <div className="container mx-auto px-6 relative z-10">
-          <div className="grid lg:grid-cols-2 gap-20 items-center">
-            <div>
-              <h2 className="text-7xl font-black italic uppercase leading-none mb-8 text-neutral-950 tracking-tighter">
-                Technical <br /> Prowess
-              </h2>
-              <p className="text-red-100 text-xl mb-12 leading-relaxed font-bold max-w-xl">
-                We push the boundaries of what's possible in fan-cinema. From real-time mo-cap to cinematic lighting in UE5.
-              </p>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                {[
-                  "UE5 Lumen Lighting",
-                  "Xsens Motion Capture",
-                  "Custom PBR Texturing",
-                  "Rode Ambisonic Audio"
-                ].map((feature, i) => (
-                  <div key={i} className="flex items-center space-x-3 text-neutral-950 font-black uppercase italic tracking-tighter text-lg">
-                    <CheckCircle2 size={24} className="flex-shrink-0" />
-                    <span>{feature}</span>
-                  </div>
-                ))}
-              </div>
+        <div class="relative z-20 text-center md:text-left px-6 container mx-auto flex flex-col items-center md:items-start max-w-7xl">
+            <div class="inline-flex items-center space-x-2 bg-red-600/30 border border-red-500/50 rounded-full px-5 py-1.5 mb-8 backdrop-blur-md shadow-[0_0_15px_rgba(220,38,38,0.3)]">
+                <span class="w-2 h-2 bg-red-500 rounded-full animate-pulse"></span>
+                <span class="text-[10px] font-black uppercase tracking-[0.2em] text-red-100">Project: A Leap of Faith</span>
             </div>
-            <div className="relative">
-              <div className="absolute inset-0 bg-neutral-950 rounded-[2rem] rotate-3 -translate-x-4 -translate-y-4" />
-              <div className="relative rounded-[2rem] overflow-hidden border-8 border-neutral-950 aspect-video group">
-                <img 
-                  src="https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&q=80&w=800" 
-                  alt="Production Gear"
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
-                />
-                <div className="absolute inset-0 flex items-center justify-center bg-black/40 group-hover:bg-transparent transition-colors">
-                  <div className="w-20 h-20 bg-red-600 rounded-full flex items-center justify-center shadow-2xl cursor-pointer hover:scale-110 transition-transform">
-                    <Play fill="black" size={32} />
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
+            
+            <h1 class="text-7xl md:text-[11rem] font-black italic uppercase leading-[0.8] mb-8 hover-glitch transition-all cursor-default tracking-tighter">
+                Be <span class="text-red-600">Greater</span>
+            </h1>
+            
+            <p class="text-lg md:text-2xl text-neutral-200 mb-12 max-w-xl font-medium leading-tight drop-shadow-[0_2px_10px_rgba(0,0,0,1)]">
+                Excelsior Studios brings the Brooklyn hero to life with custom 3D textures and feature-grade Unreal Engine 5 rendering.
+            </p>
 
-      {/* Footer / Contact */}
-      <footer id="contact" className="py-32 bg-black">
-        <div className="container mx-auto px-6">
-          <div className="grid md:grid-cols-2 gap-20 mb-32">
-            <div>
-              <h3 className="text-6xl font-black uppercase italic mb-8 tracking-tighter">Let's Create <br /><span className="text-red-600 underline decoration-red-600/30">History</span></h3>
-              <p className="text-neutral-500 mb-12 max-w-sm text-lg font-medium leading-relaxed">
-                Whether you're a VFX artist, suit builder, or a fan with a vision, join the Excelsior team.
-              </p>
-              <div className="space-y-6">
-                <a href="mailto:contact@excelsiorstudios.com" className="group flex items-center space-x-4 text-2xl font-bold hover:text-red-500 transition-colors">
-                  <div className="w-12 h-12 bg-neutral-900 rounded-xl flex items-center justify-center group-hover:bg-red-600 transition-colors">
-                    <Mail size={24} />
-                  </div>
-                  <span>Join the Roster</span>
-                </a>
-                <div className="flex space-x-6 pt-10">
-                  {[Youtube, Instagram, Twitter].map((Icon, i) => (
-                    <div key={i} className="p-4 bg-neutral-900 rounded-2xl hover:bg-red-600 hover:scale-110 cursor-pointer transition-all">
-                      <Icon size={24} />
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </div>
-            <div className="bg-neutral-900/40 p-12 rounded-[3rem] border border-white/5 backdrop-blur-md">
-              <form className="grid grid-cols-1 gap-6" onSubmit={e => e.preventDefault()}>
-                <div className="grid grid-cols-2 gap-6">
-                  <input type="text" placeholder="Alias" className="bg-black/50 border border-white/10 rounded-2xl p-5 focus:outline-none focus:border-red-600 transition-colors font-bold uppercase tracking-widest text-xs" />
-                  <input type="email" placeholder="Comms Link" className="bg-black/50 border border-white/10 rounded-2xl p-5 focus:outline-none focus:border-red-600 transition-colors font-bold uppercase tracking-widest text-xs" />
-                </div>
-                <textarea placeholder="Your Pitch..." rows={5} className="bg-black/50 border border-white/10 rounded-2xl p-5 focus:outline-none focus:border-red-600 transition-colors font-bold uppercase tracking-widest text-xs" />
-                <button className="bg-red-600 hover:bg-red-700 text-white font-black uppercase tracking-widest py-6 rounded-2xl transition-all shadow-[0_10px_20px_rgba(220,38,38,0.2)] hover:shadow-[0_15px_30px_rgba(220,38,38,0.4)]">
-                  Transmit Request
+            <div class="flex flex-col sm:flex-row items-center gap-6">
+                <button class="w-full sm:w-auto px-10 py-5 bg-red-600 hover:bg-red-700 rounded-full font-black uppercase tracking-widest flex items-center justify-center transition-all transform hover:scale-105 shadow-[0_0_30px_rgba(220,38,38,0.4)] group">
+                    Play Trailer <svg class="ml-3 fill-current group-hover:translate-x-1 transition-transform" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg>
                 </button>
-              </form>
+                <button class="w-full sm:w-auto px-10 py-5 bg-black/40 hover:bg-black/60 rounded-full font-black uppercase tracking-widest border border-white/10 backdrop-blur-xl transition-all hover:border-red-600/50">
+                    Technical Breakdown
+                </button>
             </div>
-          </div>
-
-          <div className="pt-12 border-t border-white/10 text-neutral-600 text-[10px] font-black uppercase tracking-[0.4em] text-center">
-            Excelsior Studios Production © 2024 • Non-Profit Fan Venture
-          </div>
         </div>
-      </footer>
-    </div>
-  );
-};
+    </section>
 
-export default App;
+    <!-- Stats Section -->
+    <section class="py-20 border-y border-white/5 bg-neutral-900/50 relative overflow-hidden">
+        <div class="container mx-auto px-6 relative z-10">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
+                <div class="text-center group">
+                    <div class="text-4xl md:text-5xl font-black text-white group-hover:text-red-600 transition-colors mb-2 tracking-tighter">50+</div>
+                    <div class="text-[10px] uppercase tracking-[0.3em] text-neutral-500 font-bold">3D Environments</div>
+                </div>
+                <div class="text-center group">
+                    <div class="text-4xl md:text-5xl font-black text-white group-hover:text-red-600 transition-colors mb-2 tracking-tighter">12</div>
+                    <div class="text-[10px] uppercase tracking-[0.3em] text-neutral-500 font-bold">Custom Suits</div>
+                </div>
+                <div class="text-center group">
+                    <div class="text-4xl md:text-5xl font-black text-white group-hover:text-red-600 transition-colors mb-2 tracking-tighter">400+</div>
+                    <div class="text-[10px] uppercase tracking-[0.3em] text-neutral-500 font-bold">VFX Shots</div>
+                </div>
+                <div class="text-center group">
+                    <div class="text-4xl md:text-5xl font-black text-white group-hover:text-red-600 transition-colors mb-2 tracking-tighter">25k+</div>
+                    <div class="text-[10px] uppercase tracking-[0.3em] text-neutral-500 font-bold">YouTube Subs</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Grid -->
+    <section id="projects" class="py-24">
+        <div class="container mx-auto px-6">
+            <div class="flex flex-col md:flex-row justify-between items-end mb-16 gap-6">
+                <div>
+                    <h2 class="text-sm font-bold uppercase tracking-[0.3em] text-red-600 mb-4">The Slate</h2>
+                    <h3 class="text-4xl md:text-6xl font-black italic uppercase">Primary Mission</h3>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 max-w-3xl mx-auto">
+                <div class="group relative overflow-hidden rounded-3xl bg-neutral-900 border border-white/5 hover:border-red-600/50 transition-all duration-500 shadow-2xl">
+                    <div class="aspect-video overflow-hidden">
+                        <img 
+                            src="spider-man-miles-morales-ps5-7zzx04redpyxuwf3.jpg" 
+                            alt="Miles Morales"
+                            class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 brightness-75 group-hover:brightness-100"
+                            style="object-position: center 40%;"
+                            onerror="this.src='https://images.unsplash.com/photo-1620336655055-088d06e766e3?auto=format&fit=crop&q=80&w=1920'"
+                        >
+                        <div class="absolute inset-0 bg-gradient-to-t from-neutral-900 via-neutral-900/40 to-transparent"></div>
+                    </div>
+                    <div class="p-10 relative">
+                        <span class="text-[9px] font-black uppercase tracking-widest px-3 py-1 bg-red-600 text-white rounded-full mb-4 inline-block">
+                            In Production
+                        </span>
+                        <h4 class="text-4xl font-black mb-3 italic uppercase tracking-tighter leading-none">
+                            Miles Morales: A Leap of Faith
+                        </h4>
+                        <p class="text-neutral-400 text-lg leading-relaxed mb-6">
+                            A definitive live-action exploration of Miles' journey, pushing the boundaries of independent VFX and storytelling.
+                        </p>
+                        <button class="flex items-center text-[10px] font-black uppercase tracking-widest text-red-500 hover:text-white transition-colors">
+                            Explore Production Gallery <svg class="ml-1" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- VFX Mastery Section -->
+    <section id="vfx" class="py-32 bg-red-600 relative overflow-hidden">
+        <div class="container mx-auto px-6 relative z-10">
+            <div class="grid lg:grid-cols-2 gap-20 items-center">
+                <div>
+                    <h2 class="text-7xl font-black italic uppercase leading-none mb-8 text-neutral-950 tracking-tighter text-black">
+                        Technical <br> Prowess
+                    </h2>
+                    <p class="text-red-100 text-xl mb-12 leading-relaxed font-bold max-w-xl text-red-950">
+                        We push the boundaries of what's possible in fan-cinema. From real-time mo-cap to cinematic lighting in UE5.
+                    </p>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                        <div class="flex items-center space-x-3 text-neutral-950 font-black uppercase italic tracking-tighter text-lg">
+                            <svg class="flex-shrink-0" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                            <span>UE5 Lumen Lighting</span>
+                        </div>
+                        <div class="flex items-center space-x-3 text-neutral-950 font-black uppercase italic tracking-tighter text-lg">
+                            <svg class="flex-shrink-0" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                            <span>Xsens Motion Capture</span>
+                        </div>
+                        <div class="flex items-center space-x-3 text-neutral-950 font-black uppercase italic tracking-tighter text-lg">
+                            <svg class="flex-shrink-0" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                            <span>Custom PBR Texturing</span>
+                        </div>
+                        <div class="flex items-center space-x-3 text-neutral-950 font-black uppercase italic tracking-tighter text-lg">
+                            <svg class="flex-shrink-0" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+                            <span>Rode Ambisonic Audio</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="relative">
+                    <div class="absolute inset-0 bg-neutral-950 rounded-[2rem] rotate-3 -translate-x-4 -translate-y-4"></div>
+                    <div class="relative rounded-[2rem] overflow-hidden border-8 border-neutral-950 aspect-video group">
+                        <img 
+                            src="https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&q=80&w=800" 
+                            alt="Production Gear"
+                            class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                        >
+                        <div class="absolute inset-0 flex items-center justify-center bg-black/40 group-hover:bg-transparent transition-colors">
+                            <div class="w-20 h-20 bg-red-600 rounded-full flex items-center justify-center shadow-2xl cursor-pointer hover:scale-110 transition-transform">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="black"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer / Contact -->
+    <footer id="contact" class="py-32 bg-black">
+        <div class="container mx-auto px-6">
+            <div class="grid md:grid-cols-2 gap-20 mb-32">
+                <div>
+                    <h3 class="text-6xl font-black uppercase italic mb-8 tracking-tighter">Let's Create <br><span class="text-red-600 underline decoration-red-600/30">History</span></h3>
+                    <p class="text-neutral-500 mb-12 max-w-sm text-lg font-medium leading-relaxed">
+                        Whether you're a VFX artist, suit builder, or a fan with a vision, join the Excelsior team.
+                    </p>
+                    <div class="space-y-6">
+                        <a href="mailto:contact@excelsiorstudios.com" class="group flex items-center space-x-4 text-2xl font-bold hover:text-red-500 transition-colors">
+                            <div class="w-12 h-12 bg-neutral-900 rounded-xl flex items-center justify-center group-hover:bg-red-600 transition-colors">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                            </div>
+                            <span>Join the Roster</span>
+                        </a>
+                        <div class="flex space-x-6 pt-10">
+                            <div class="p-4 bg-neutral-900 rounded-2xl hover:bg-red-600 hover:scale-110 cursor-pointer transition-all">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.42a2.78 2.78 0 0 0-1.94 2C1 8.14 1 12 1 12s0 3.86.42 5.58a2.78 2.78 0 0 0 1.94 2c1.72.42 8.6.42 8.6.42s6.88 0 8.6-.42a2.78 2.78 0 0 0 1.94-2C23 15.86 23 12 23 12s0-3.86-.42-5.58z"/><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02"/></svg>
+                            </div>
+                            <div class="p-4 bg-neutral-900 rounded-2xl hover:bg-red-600 hover:scale-110 cursor-pointer transition-all">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+                            </div>
+                            <div class="p-4 bg-neutral-900 rounded-2xl hover:bg-red-600 hover:scale-110 cursor-pointer transition-all">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"/></svg>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-neutral-900/40 p-12 rounded-[3rem] border border-white/5 backdrop-blur-md">
+                    <form class="grid grid-cols-1 gap-6" onsubmit="event.preventDefault()">
+                        <div class="grid grid-cols-2 gap-6">
+                            <input type="text" placeholder="Alias" class="bg-black/50 border border-white/10 rounded-2xl p-5 focus:outline-none focus:border-red-600 transition-colors font-bold uppercase tracking-widest text-xs">
+                            <input type="email" placeholder="Comms Link" class="bg-black/50 border border-white/10 rounded-2xl p-5 focus:outline-none focus:border-red-600 transition-colors font-bold uppercase tracking-widest text-xs">
+                        </div>
+                        <textarea placeholder="Your Pitch..." rows="5" class="bg-black/50 border border-white/10 rounded-2xl p-5 focus:outline-none focus:border-red-600 transition-colors font-bold uppercase tracking-widest text-xs"></textarea>
+                        <button class="bg-red-600 hover:bg-red-700 text-white font-black uppercase tracking-widest py-6 rounded-2xl transition-all shadow-[0_10px_20px_rgba(220,38,38,0.2)] hover:shadow-[0_15px_30px_rgba(220,38,38,0.4)]">
+                            Transmit Request
+                        </button>
+                    </form>
+                </div>
+            </div>
+
+            <div class="pt-12 border-t border-white/10 text-neutral-600 text-[10px] font-black uppercase tracking-[0.4em] text-center">
+                Excelsior Studios Production © 2024 • Non-Profit Fan Venture
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Simple Navbar Scroll Logic
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                navbar.classList.add('bg-black/95', 'backdrop-blur-md', 'py-3', 'border-b', 'border-white/5');
+                navbar.classList.remove('bg-transparent', 'py-6');
+            } else {
+                navbar.classList.remove('bg-black/95', 'backdrop-blur-md', 'py-3', 'border-b', 'border-white/5');
+                navbar.classList.add('bg-transparent', 'py-6');
+            }
+        });
+
+        // Mobile Menu Toggle
+        const menuToggle = document.getElementById('menu-toggle');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const menuIcon = document.getElementById('menu-icon');
+
+        menuToggle.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+            // Toggle icon
+            if (mobileMenu.classList.contains('hidden')) {
+                menuIcon.innerHTML = '<line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line>';
+            } else {
+                menuIcon.innerHTML = '<line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line>';
+            }
+        });
+
+        // Close mobile menu on link click
+        document.querySelectorAll('#mobile-menu a').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+                menuIcon.innerHTML = '<line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line>';
+            });
+        });
+    </script>
+</body>
+</html>
